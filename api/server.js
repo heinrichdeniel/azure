@@ -13,8 +13,8 @@ app.use(parser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors({exposedHeaders: ['Location']}));
 app.use('/', routes);
 
-database.sequelize.sync().then(function() {
-    //initializeDB();
+database.sequelize.sync({force: true}).then(function() {
+    initializeDB();
     app.listen(config.app.port, function () {
         console.log('API listening on port ' + config.app.port);
     });

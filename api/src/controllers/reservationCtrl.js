@@ -5,8 +5,8 @@ var sequelize = require('../database/index').sequelize;
 var moment = require('moment');
 
 module.exports.saveReservation = function (req, res) {
-  sequelize.transaction(function(t) {
-    Reservation.create({
+  sequelize.transaction({ autocommit: false }, async function(t) {
+    await Reservation.create({
       email: req.body.email,
       phone: req.body.phone,
       firstname: req.body.firstname,
@@ -16,30 +16,26 @@ module.exports.saveReservation = function (req, res) {
       movieId: req.body.movieId
     })
       .then((reservation) => {
-        req.body.selectedSeats.map((row, rowIndex) => {
-          Promise.all(row.map(column => {
-            ReservedSeat.create({
+        Promise.all(req.body.selectedSeats.map((row, rowIndex) => {
+          Promise.all(row.map(async (column) => {
+            await ReservedSeat.create({
               row: rowIndex,
               column: column,
               reservationId: reservation.id
             })
             .catch(()=>{
-              t.rollback().success(function() {})
+              t.rollback()
             })
-          })).then(() => {
-            t.commit().success(function() {})
-          })
-        });
-      })
+          }))
+        }));
+      })      
       .catch(()=>{
-        t.rollback().success(function() {})
+        t.rollback()
       })
-      
-      t.done(function() {
-        res.json({
-          success:true
-        });
-      })
+    }).done(function() {
+      res.json({
+        success:true
+      });
     })
 };
 
