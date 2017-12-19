@@ -10,10 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "material-ui": "^0.20.0",
+    "moment": "^2.19.4",
     "next": "^4.2.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-no-ssr": "^1.1.0",
-    "react-swipeable-views": "^0.12.12"
+    "react-swipeable-views": "^0.12.12",
+    "superagent": "^3.8.2"
   }
 }

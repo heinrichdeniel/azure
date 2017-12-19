@@ -1,19 +1,43 @@
-var Connection = require('tedious').Connection;  
-var config = {  
-    userName: 'rapid-transfer',  
-    password: 'Password123',  
-    server: 'rapid-transfer.database.windows.net',  
-    // When you connect to Azure SQL Database, you need these next options.  
-    options: {encrypt: true, database: 'rapid-transfer'}  
-}; 
+var Sequelize = require("sequelize");
+var config = require("../config");
 
- 
+var sequelize = new Sequelize(config.database.db , config.database.username, config.database.password, {
+    host: config.database.host,
+    dialect: 'postgres',
+    port: config.database.port,
+    pool: {
+        max: 25,
+        min: 0,
+        idle: 10000,
+    },
+    define: {
+        paranoid: true
+    },
+    logging: false,
+    
+});
 
-module.exports = function() {
-  var connection = new Connection(config);  
-  connection.on('connect', function(err) {  
-      // If no error, then good to proceed.  
-      console.log("Connected");  
-      executeStatement();  
-  }); 
-}
+var Movie = sequelize.import('./models/movie');
+var Actor = sequelize.import('./models/actor');
+var Reservation = sequelize.import('./models/reservation');
+var ReservedSeat = sequelize.import('./models/reservedSeat');
+
+MovieActor = sequelize.define('movie_actor');
+Movie.belongsToMany(Actor, { through: MovieActor });
+Actor.belongsToMany(Movie, { through: MovieActor });
+
+Movie.hasMany(Reservation);
+Reservation.belongsTo(Movie);
+
+Reservation.hasMany(ReservedSeat);
+ReservedSeat.belongsTo(Reservation);
+
+module.exports = {
+    Sequelize,
+    sequelize,
+    Movie,
+    Actor,
+    MovieActor,
+    Reservation,
+    ReservedSeat
+};

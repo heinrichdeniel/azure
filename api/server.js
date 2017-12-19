@@ -4,6 +4,7 @@ let cors = require('cors');
 var routes = require('./src/routes'); 
 var config = require('./src/config');
 var database = require('./src/database');
+var initializeDB = require('./src/utils/initializeDB');
 
 var app = express();
 
@@ -12,7 +13,8 @@ app.use(parser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors({exposedHeaders: ['Location']}));
 app.use('/', routes);
 
-database.connect(() => {
+database.sequelize.sync().then(function() {
+    //initializeDB();
     app.listen(config.app.port, function () {
         console.log('API listening on port ' + config.app.port);
     });

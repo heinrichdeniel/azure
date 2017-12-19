@@ -1,23 +1,24 @@
 import React from 'react';
 import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Dialog from './Dialog';
+import Dialog from './common/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const ListStyle = {
     width: '100%',
-    bottom: 0,
-    top: '85px',
     left: '50%',
-    position: 'fixed',
+    position: 'relative',
     transform: 'translateX(-50%)',
-    overflow: 'auto'
+    overflow: 'auto',
+    height: 'calc(100vh - 70px)',
+    
 }
 
 const CardStyle = {
-  width: '300px', 
+  width: '300px',
   margin: '15px',
   display: 'inline-block'
+  
 }
 
 class MovieList extends React.Component {
@@ -44,53 +45,9 @@ class MovieList extends React.Component {
   render(){
     let { movieList } = this.props;
 
-    movieList = [{
-      title: "A viszkis",
-      length: "127 perc",
-      description: "Vagány volt, híres lett. Ő az, akit mindenki ismer, olyasmit mert, amit senki előtte, és aki mindig egy lépéssel a rendőrség előtt járt. És aki minden bankrablása előtt megivott egy pohár viszkit.Ambrus Attila (Szalay Bence) félárván nő fel, zűrös kamaszkort és javítóintézeti éveket hagy maga mögött, amikor Erdélyből kalandos körülmények között Magyarországra szökik. ",
-      photo_url: "https://www.cinemacity.hu/xmedia-cw/repo/feats/posters/2479O2R.jpg",
-      actors: ['Szalay Bence', 'Móga Piroska', 'Schneider Zoltán', 'Klem Viktor', 'Gazsó György'],
-      genre: 'Akció'
-    },{
-      title: "A viszkis",
-      length: "127 perc",
-      description: "Vagány volt, híres lett. Ő az, akit mindenki ismer, olyasmit mert, amit senki előtte, és aki mindig egy lépéssel a rendőrség előtt járt. És aki minden bankrablása előtt megivott egy pohár viszkit.Ambrus Attila (Szalay Bence) félárván nő fel, zűrös kamaszkort és javítóintézeti éveket hagy maga mögött, amikor Erdélyből kalandos körülmények között Magyarországra szökik. ",
-      photo_url: "https://www.cinemacity.hu/xmedia-cw/repo/feats/posters/2479O2R.jpg",
-      actors: ['Szalay Bence', 'Móga Piroska', 'Schneider Zoltán', 'Klem Viktor', 'Gazsó György'],
-      genre: 'Akció'
-    },{
-      title: "A viszkis",
-      length: "127 perc",
-      description: "Vagány volt, híres lett. Ő az, akit mindenki ismer, olyasmit mert, amit senki előtte, és aki mindig egy lépéssel a rendőrség előtt járt. És aki minden bankrablása előtt megivott egy pohár viszkit.Ambrus Attila (Szalay Bence) félárván nő fel, zűrös kamaszkort és javítóintézeti éveket hagy maga mögött, amikor Erdélyből kalandos körülmények között Magyarországra szökik. ",
-      photo_url: "https://www.cinemacity.hu/xmedia-cw/repo/feats/posters/2479O2R.jpg",
-      actors: ['Szalay Bence', 'Móga Piroska', 'Schneider Zoltán', 'Klem Viktor', 'Gazsó György'],
-      genre: 'Akció'
-    },{
-      title: "A viszkis",
-      length: "127 perc",
-      description: "Vagány volt, híres lett. Ő az, akit mindenki ismer, olyasmit mert, amit senki előtte, és aki mindig egy lépéssel a rendőrség előtt járt. És aki minden bankrablása előtt megivott egy pohár viszkit.Ambrus Attila (Szalay Bence) félárván nő fel, zűrös kamaszkort és javítóintézeti éveket hagy maga mögött, amikor Erdélyből kalandos körülmények között Magyarországra szökik. ",
-      photo_url: "https://www.cinemacity.hu/xmedia-cw/repo/feats/posters/2479O2R.jpg",
-      actors: ['Szalay Bence', 'Móga Piroska', 'Schneider Zoltán', 'Klem Viktor', 'Gazsó György'],
-      genre: 'Akció'
-    },{
-      title: "A viszkis",
-      length: "127 perc",
-      description: "Vagány volt, híres lett. Ő az, akit mindenki ismer, olyasmit mert, amit senki előtte, és aki mindig egy lépéssel a rendőrség előtt járt. És aki minden bankrablása előtt megivott egy pohár viszkit.Ambrus Attila (Szalay Bence) félárván nő fel, zűrös kamaszkort és javítóintézeti éveket hagy maga mögött, amikor Erdélyből kalandos körülmények között Magyarországra szökik. ",
-      photo_url: "https://www.cinemacity.hu/xmedia-cw/repo/feats/posters/2479O2R.jpg",
-      actors: ['Szalay Bence', 'Móga Piroska', 'Schneider Zoltán', 'Klem Viktor', 'Gazsó György'],
-      genre: 'Akció'
-    },{
-      title: "A viszkis",
-      length: "127 perc",
-      description: "Vagány volt, híres lett. Ő az, akit mindenki ismer, olyasmit mert, amit senki előtte, és aki mindig egy lépéssel a rendőrség előtt járt. És aki minden bankrablása előtt megivott egy pohár viszkit.Ambrus Attila (Szalay Bence) félárván nő fel, zűrös kamaszkort és javítóintézeti éveket hagy maga mögött, amikor Erdélyből kalandos körülmények között Magyarországra szökik. ",
-      photo_url: "https://www.cinemacity.hu/xmedia-cw/repo/feats/posters/2479O2R.jpg",
-      actors: ['Szalay Bence', 'Móga Piroska', 'Schneider Zoltán', 'Klem Viktor', 'Gazsó György'],
-      genre: 'Akció'
-    }];
-
     return (
         <div style={ListStyle}>
-          <div style={{width: '990px', margin: 'auto' }}>
+          <div style={{width: '990px', margin: 'auto',  columnCount: '3', padding: '15px 0'}}>
             {movieList.map((movie, index) => {
                 return (
                     <div key={index} style={CardStyle}>

@@ -10,10 +10,11 @@ import FontIcon from 'material-ui/FontIcon';
 import MovieIcon from 'material-ui/svg-icons/image/movie-filter';
 import ReservationIcon from 'material-ui/svg-icons/action/receipt';
 import NoSSR from 'react-no-ssr';
-
 import MovieList from './MovieList'
+import Reservations from './Reservations'
+
 const TabStyle = {
-    background: 'transparent',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
 }
 
 const AppStyle = {
@@ -33,7 +34,7 @@ class App extends React.Component {
     this.state = {
       slideIndex: 0,
     };
-    
+
   }
 
   handleChange = (value) => {
@@ -51,7 +52,7 @@ class App extends React.Component {
                         onChange={this.handleChange}
                         value={this.state.slideIndex}
                         style={TabStyle}
-                        tabItemContainerStyle={TabStyle}
+                        tabItemContainerStyle={{background: 'transparent'}}
                         inkBarStyle={{
                             backgroundColor: '#eee'
                         }} >
@@ -59,14 +60,17 @@ class App extends React.Component {
                             icon={<MovieIcon style={{color: '#eee'}}/>}
                             style={{color: '#eee'}}
                             label="Filmek"
+                            onClick={this.handleChange}
                             value={0}>
-                            <MovieList />
+                            <MovieList movieList={this.props.movieList} />
                         </Tab>
                         <Tab
                             icon={<ReservationIcon style={{color: '#eee'}}/>}
                             style={{color: '#eee'}}
                             label="Foglalások"
+                            onClick={this.handleChange}
                             value={1}>
+                            <Reservations/>
                         </Tab>
                     </Tabs>
 
